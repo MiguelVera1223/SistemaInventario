@@ -6,6 +6,7 @@ class CategoriaModel(models.Model):
     categoriaId = models.AutoField(auto_created=True, primary_key=True, unique=True, null=False, db_column='categoria_id')
     categoriaNombre= models.CharField(max_length=45, db_column='categoria_nombre')
     categoriaDescripcion= models.CharField(max_length=45, db_column='categoria_descripcion')
+    categoriaEstado = models.BooleanField(default=True, db_column='categoria_estado')
     class Meta:
         db_table='t_categoria'
         verbose_name_plural = "Categorias"
@@ -28,6 +29,9 @@ class ProductoModel(models.Model):
         db_table = 't_producto'
         verbose_name_plural = 'Productos'
         verbose_name = "Producto"
+        
+    def __str__(self):
+        return self.productoNombre
 
 class PersonaModel(models.Model):
     personaId =models.AutoField(primary_key=True, unique=True,null=False, db_column='persona_id')
@@ -35,7 +39,7 @@ class PersonaModel(models.Model):
     personaNombre= models.CharField(max_length=45, db_column='persona_nombre')
     personaDocumento= models.CharField(max_length=45, db_column='persona_documento')
     personaTelefono= models.CharField(max_length=45, db_column='persona_Telefono')
-    personaEstado= models.CharField(max_length=45, db_column='persona_estado')
+    personaEstado= models.BooleanField(default=True, db_column='persona_estado')
     class Meta:
         db_table='t_persona'
         verbose_name_plural="Personas"
@@ -48,7 +52,7 @@ class UsuarioModel(models.Model):
     usuarioNombre= models.CharField(max_length=45, db_column='usuario_nombre')
     usuarioTelefono= models.CharField(max_length=45, db_column='usuario_telefono')
     usuarioUsers= models.CharField(max_length=45, db_column='usuario_users')
-    usuarioEstado= models.CharField(max_length=45, db_column='usuario_estado')
+    usuarioEstado= models.BooleanField(default=True, db_column='usuario_estado')
     class Meta:
         db_table='t_usuario'
         verbose_name_plural='Usuarios'

@@ -1,4 +1,5 @@
-from .models import ProductoModel
+from django.db.models import fields
+from .models import PersonaModel, ProductoModel, CategoriaModel, UsuarioModel
 
 #rest
 from rest_framework import serializers
@@ -22,3 +23,58 @@ class ProductoSerializer(serializers.ModelSerializer):
         self.instance.productoEstado = False
         self.instance.save()
         return self.instance
+
+
+class CategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoriaModel
+        fields = "__all__"
+    def update(self):
+        self.instance.categoriaNombre = self.validated_data.get("categoriaNombre", self.instance.categoriaNombre)
+        self.instance.categoriaDescripcion = self.validated_data.get("categoriaDescripcion", self.instance.categoriaDescripcion)
+        self.instance.save()
+        return self.instance
+    def delete(self):
+        self.instance.categoriaEstado = False
+        self.instance.save()
+        return self.instance
+
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsuarioModel
+        fields="__all__"
+    
+    def update(self):
+        self.instance.usuarioDocumento = self.validated_data.get("usuarioDocumento", self.instance.usuarioDocumento)
+        self.instance.usuarioCargo = self.validated_data.get("usuarioCargo", self.instance.usuarioCargo)
+        self.instance.usuarioNombre = self.validated_data.get("usuarioNombre",self.instance.usuarioNombre)
+        self.instance.usuarioTelefono = self.validated_data.get("usuarioTelefono", self.instance.usuarioTelefono)
+        self.instance.usuarioUsers = self.validated_data.get("usuarioUsers", self.instance.usuarioUsers)
+        self.instance.usuarioEstado = self.validated_data.get("usuarioEstado", self.instance.usuarioEstado)
+        self.instance.save()
+        return self.instance
+
+    def delete(self):
+        self.instance.usuarioEstado = False
+        self.instance.save()
+        return self.instance
+
+class PersonaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PersonaModel
+        fields="__all__"
+    def update(self):
+        self.instance.personaCargo = self.validated_data.get("personaCargo", self.instance.personaCargo)
+        self.instance.personaNombre = self.validated_data.get("personaNombre", self.instance.personaNombre)
+        self.instance.personaDocumento = self.validated_data.get("personaDocumento", self.instance.personaDocumento)
+        self.instance.personaTelefono = self.validated_data.get("personaTelefono", self.instance.personaTelefono)
+        self.instance.personaEstado = self.validated_data.get("personaEstado", self.instance.personaEstado)
+        self.instance.save()
+        return self.instance
+    
+    def delete(self):
+        self.instance.personaEstado = False
+        self.instance.save()
+        return self.instance
+
+        
